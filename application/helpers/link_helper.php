@@ -4,11 +4,11 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 // ------------------------------------------------------------------------
 if(!function_exists('link_file')) {
 	/**
-	 * Form Declaration - Multipart type
+	 * Extra File Link Declaration
 	 *
-	 * Creates the opening portion of the form, but with "multipart/form-data".
+	 * Creates the link tag.
 	 *
-	 * @param	string	the URI segments of the form destination
+	 * @param	string	the URI of this application
 	 * @param	string	a type of file
 	 * @param	string	the URI segments of the form destination
 	 * @param	array	a key/value pair hidden data
