@@ -18,6 +18,7 @@ class  MY_Controller  extends  CI_Controller  {
 		$this->load->helper('menu_helper');
 		$this->load->helper('link_helper');
 		$this->load->model('users_model');
+		
 	}
 	
 

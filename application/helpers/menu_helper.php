@@ -14,7 +14,8 @@ if(!function_exists('side_navlist')) {
     }
     $navlink = '<li class="nav-item">
             <a class="nav-link '.$active_ul_snav.' " href="'.$link.'">
-              <span data-feather="'.$icon.'"></span>
+         
+              <span data-feather="'.$icon.'" ></span>
                '.$name.' '.$active_ul_snav_span.'
             </a>
           </li>';

@@ -2,13 +2,11 @@
    $user = $this->session->userdata('user');
    extract($user);
 
-   $json = $roles;
-
-   
    $user_id       = $id;
    $user_username = $username;
    $user_fullname = $name;
    $user_roles    = $roles;
+
    $permission = json_decode($user_roles);
 
    

@@ -8,6 +8,8 @@
    $user_fullname = $name;
    $user_roles    = $roles;
 
+   $permission = json_decode($user_roles);
+
    $controller = $this->uri->segment(1); 
 
 

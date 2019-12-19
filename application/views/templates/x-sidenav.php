@@ -15,12 +15,6 @@
                         font-weight: 600;
                         padding: 8px 16px; color:white;">MAIN NAVIGATION</div>
 
-                                        <!--         <li class="nav-item">
-                       <a class="nav-link <?php if($controller=='dashboard'){echo 'nav-active';}?> " href="dashboard">
-                       <span data-feather="home"></span>
-                       Dashboard
-                       </a>
-                    </li> -->
                 <?php 
 
                 echo side_navlist($controller,"Dashboard","dashboard",'home');
