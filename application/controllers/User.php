@@ -95,7 +95,7 @@ class User extends MY_Controller {
 	|
 	*/
 	public function project(){
-		if(array_search("manage1r", $this->userRoles)){
+		if(array_search("manager", $this->userRoles)){
 			$this->callDashboard();
 		}
 		else{
