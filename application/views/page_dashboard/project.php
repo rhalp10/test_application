@@ -3,9 +3,9 @@
     </div>
     <div class="row">
         <div class="col-sm-12 text-center " style="min-height: 100px;">
-            <H3>TEST APPLICATION</H3>
+            <H3>PROJECT</H3>
            
-            <H3><?=$controller?></H3>
+            <!-- <H3><?=$controller?></H3> -->
         </div>
     </div>
 </main>
