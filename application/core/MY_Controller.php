@@ -10,13 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 class  MY_Controller  extends  CI_Controller  {
-	var $page_view; //String : set page for current user
+	var $page_view; 				//String : set page for current user
 	var $page_dashboard_sidenav;
-	var $perms = array();  //Array : Stores the permissions for the user
-	var $userID;   //Integer : Stores the ID of the current user
+	var $userID;   					//Integer : Stores the ID of the current user
 	var $userFullname; 
 	var $userName; 
-	var $userRoles = array(); //Array : Stores the roles of the current user
+	var $userRoles = array(); 		//Array : Stores the roles of the current user
 	
 
     function __construct(){
@@ -38,27 +37,22 @@ class  MY_Controller  extends  CI_Controller  {
 			$this->userName = $this->users_model->getuserName();
 			$this->userFullname = $this->users_model->getuserFullname();
   			$this->userRoles = $this->users_model->getUserRoles();
-  			
-  			
+
+			/*
+			| -------------------------------------------------------------------------
+			| DASHBOARD SIDEBAR LINK BASE ON ROLES
+			| -------------------------------------------------------------------------
+			*/
 			$this->sidenav["Dashboard"] = array(
 	  							"controller"	=>"dashboard",
 	  							"icon"			=>"home",
 	  							"link"			=>"dashboard",);
-
   			if(array_search("admin", $this->userRoles)){
 
   				$this->sidenav["Account"] = array(
 	  							"controller"	=>"account",
 	  							"icon"			=>"user",
 	  							"link"			=>"account",);
-  				$this->sidenav["Post"] = array(
-	  							"controller"	=>"post",
-	  							"icon"			=>"icon-blog",
-	  							"link"			=>"post",);
-  				$this->sidenav["Project"] = array(
-	  							"controller"	=>"project",
-	  							"icon"			=>"icon-clipboard3",
-	  							"link"			=>"project",);
   			}
   			if(array_search("contributor", $this->userRoles)|| array_search("editor", $this->userRoles)){
   				$this->sidenav["Post"] = array(
@@ -66,7 +60,7 @@ class  MY_Controller  extends  CI_Controller  {
 	  							"icon"			=>"icon-blog",
 	  							"link"			=>"post",);
   			}
-  			if($this->userRoles == "manager"){
+  			if(array_search("manager", $this->userRoles)){
   				$this->sidenav["Project"] = array(
 	  							"controller"	=>"project",
 	  							"icon"			=>"icon-clipboard3",
@@ -75,6 +69,9 @@ class  MY_Controller  extends  CI_Controller  {
   			
   			
   			$this->page_dashboard_sidenav = side_navigation($this->sidenav,$this->uri->segment(1));
+  			/*
+			| -------------------------------------------------------------------
+			*/
 			$this->page_view = "dashboard";
 			
 		}
