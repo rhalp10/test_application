@@ -13,6 +13,121 @@ class User extends MY_Controller {
 		$this->load->view($this->page_view);
 		
 	}
+
+	public function main(){
+		$this->load->view('main');
+	}
+	public function dashboard(){
+		$this->callDashboard();
+		
+	}
+	/*
+	| -------------------------------------------------------------------
+	|  ACCOUNT MANAGEMENT
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+	public function account(){
+		$this->callDashboard();
+	}
+	public function account_update(){
+		$this->callDashboard();
+
+	}
+	public function account_view(){
+		$this->callDashboard();
+
+	}
+	public function account_delete(){
+		$this->callDashboard();
+
+	}
+	/*
+	| -------------------------------------------------------------------
+	|  USER PROFILE 
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+	public function profile(){
+		$this->callDashboard();
+	}
+
+	/*
+	| -------------------------------------------------------------------
+	*/	
+	/*
+	| -------------------------------------------------------------------
+	|  POST MANAGEMENT
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+	public function post($id = ''){
+		$this->callDashboard();
+	}
+	public function post_update($id = ''){
+		$this->callDashboard();
+
+	}
+	public function post_view($id = ''){
+		$this->callDashboard();
+
+	}
+	public function post_delete($id = ''){
+		$this->callDashboard();
+
+	}
+	/*
+	| -------------------------------------------------------------------
+	*/	
+
+	/*
+	| -------------------------------------------------------------------
+	|  PROJECT MANAGEMENT
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+	public function project(){
+		if(array_search("manage1r", $this->userRoles)){
+			$this->callDashboard();
+		}
+		else{
+			$this->callDashboard(false);
+
+		}
+
+		
+	}
+	public function project_update(){
+
+	}
+	public function project_view(){
+
+	}
+	public function project_delete(){
+
+	}
+	/*
+	| -------------------------------------------------------------------
+	*/
+
+
+	/*
+	| -------------------------------------------------------------------
+	|  SESSION
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+
 	public function authentication(){
 		$output = array();
 		
@@ -49,32 +164,24 @@ class User extends MY_Controller {
 
 		echo json_encode($output,true);
 	}
-	public function main(){
-		$this->load->view('main');
-	}
-	public function dashboard(){
-		$this->callDashboard();
-		
-	}
-	public function account(){
-		$this->callDashboard();
-	}
-	public function profile(){
-		$this->callDashboard();
-	}
-	public function post(){
-		$this->callDashboard();
-	}
-	public function project(){
-		$this->callDashboard();
-	}
+	public function callDashboard($has_access_inpage = true){
 
-	public function callDashboard(){
+
 		if($this->is_user_login())
 		{
-			$this->load->view($this->page_view);
+			if($has_access_inpage == false){
+
+				$data["restrict"] = "true";
+				$this->load->view($this->page_view,$data);
+			}
+			else{
+				$this->load->view($this->page_view);
+			}
+			
+			
 		}
 		else{
+			
 			$array_msg = array(
 				'alert_class'	=>'alert alert-danger',
 				'alert_msg'		=>'Login required to proceed.');
@@ -93,7 +200,9 @@ class User extends MY_Controller {
 		$this->session->set_flashdata($array_msg);
 		redirect('/');
 	}
-	
+	/*
+	| -------------------------------------------------------------------
+	*/	
 }
 
 ?>
