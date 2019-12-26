@@ -50,16 +50,66 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'user';
-$route['dashboard'] = 'user/dashboard';
-$route['account'] = 'account/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['post'] = 'page_view/fetch_data';
-$route['post/(:num)'] = 'page_view/index/$1';
-// $route['post/(:any)/(:any)/'] = 'page_view/index/$1/$2';
+$route['index'] 	= 'user/main';
+$route['login'] 	= 'user/authentication';
+$route['dashboard'] = 'user/dashboard';
 
-// $route['CLASS/(:any)'] = 'class/function/$param1/$param2';
+/*
+| -------------------------------------------------------------------------
+| ACCOUNT MANAGEMENT URI ROUTING
+| -------------------------------------------------------------------------
+*/
+$route['account'] 						= 'user/account';
+// $route['account/(:num)'] 				= 'user/account/$1';
+$route['account/add'] 					= 'user/account_update/';
+$route['account/update/(:num)'] 		= 'user/account_update/$1';
+$route['account/view/(:num)'] 			= 'user/account_view/$1';
+$route['account/delete/(:num)'] 		= 'user/account_delete/$1';
+$route['account/page'] 					= 'user/account';
+$route['account/page/(:num)'] 			= 'user/account/$1';
+
+/*
+| -------------------------------------------------------------------------
+*/
+
+/*
+| -------------------------------------------------------------------------
+| USER PROFILE MANAGEMENT URI ROUTING
+| -------------------------------------------------------------------------
+*/
+$route['profile'] 	= 'user/profile';
+/*
+| -------------------------------------------------------------------------
+*/
+
+/*
+| -------------------------------------------------------------------------
+| POST/BLOG/PAGE MANAGEMENT URI ROUTING
+| -------------------------------------------------------------------------
+*/
+$route['post'] 						= 'user/post';
+$route['post/update/(:num)'] 		= 'user/post_update/$1';
+$route['post/view/(:num)'] 			= 'user/post_view/$1';
+$route['post/delete/(:num)'] 		= 'user/post_delete/$1';
+/*
+| -------------------------------------------------------------------------
+*/
+
+/*
+| -------------------------------------------------------------------------
+| PROJECT MANAGEMENT URI ROUTING
+| -------------------------------------------------------------------------
+*/
+$route['project'] 						= 'user/project';
+$route['project/update/(:num)'] 		= 'user/post_update/$1';
+$route['project/view/(:num)'] 			= 'user/post_view/$1';
+$route['project/delete/(:num)'] 		= 'user/post_delete/$1';
+/*
+| -------------------------------------------------------------------------
+*/
 
 
-// $route['page/1'] = FALSE;
+
