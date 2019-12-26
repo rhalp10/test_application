@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2019 at 12:38 AM
+-- Generation Time: Dec 26, 2019 at 08:46 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -47,7 +47,8 @@ INSERT INTO `pages` (`id`, `user_id`, `title`, `body`, `status`, `created_date`)
 (3, 1, 'Page3', 'Page3 Content', 1, '2019-12-17 05:22:30'),
 (8, 13, 'asd', 'post', 0, '2019-12-17 21:23:34'),
 (9, 13, '5675454', 'bago', 0, '2019-12-17 21:41:06'),
-(11, 12, 'dasd', 'asdas', 0, '2019-12-17 21:57:05');
+(11, 12, 'dasd', 'asdas', 0, '2019-12-17 21:57:05'),
+(12, 1, 'new', 'web post', 0, '2019-12-26 06:42:47');
 
 -- --------------------------------------------------------
 
@@ -68,9 +69,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `name`, `roles`) VALUES
-(1, 'admin', 'admin', 'Rhalp Darren Cabrera', '{\"roles\":\"3\"}'),
+(1, 'admin', 'admin', 'Rhalp Darren Cabrera', '{\"roles\":\"3,2\"}'),
 (12, 'contributor', '123', 'Contributor', '{\"roles\":\"1\"}'),
-(13, 'editor', '123', 'Editor', '{\"roles\":\"2\"}');
+(13, 'editor', '123', 'Editor', '{\"roles\":\"2\"}'),
+(14, 'crispin', '123', 'crispin octa', '{\"roles\":\"1\"}');
 
 --
 -- Indexes for dumped tables
@@ -96,13 +98,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
