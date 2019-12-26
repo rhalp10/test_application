@@ -6,7 +6,7 @@
             "serverSide":true,
             "order":[],
             "ajax":{
-              url:"<?php echo base_url(); ?>page/fetch_data",
+              url:"<?php echo base_url(); ?>ajax/fetch_datatable/post",
               type:"POST"
             },
             "columnDefs":[
@@ -17,25 +17,25 @@
             ],
 
           });
-            <?php 
-            if ($permission->roles == 2){
-              ?>
-              $("#input_group_status").show();
+            // <?php 
+            // if ($permission->roles == 2){
+            //   ?>
+            //   $("#input_group_status").show();
               
-              <?php
-            }
-            else{
-              ?>
-              $("#input_group_status").hide();
-              <?php
-            }
-            ?>
+            //   <?php
+            // }
+            // else{
+            //   ?>
+            //   $("#input_group_status").hide();
+            //   <?php
+            // }
+            // ?>
 
           $(document).on('submit', '#page_form', function(event){
             event.preventDefault();
 
               $.ajax({
-                url:"<?php echo base_url(); ?>page/insert",
+                url:"<?php echo base_url(); ?>ajax/insert/post",
                 method:'POST',
                 data:new FormData(this),
                 contentType:false,
@@ -84,7 +84,7 @@
             $("#page_status").prop("disabled", true);
             $("#submit_input").hide();
              $.ajax({
-                url:"<?php echo base_url(); ?>page/fetch_single",
+                url:"<?php echo base_url(); ?>ajax/fetch_single/post",
                 method:'POST',
                 data:{operation:"page_view",page_ID:page_ID},
                 dataType    :   'json',
@@ -109,7 +109,7 @@
             $('#pageModalLabel').text('Edit Page');
             $('#page_modal').modal('show'); 
              $.ajax({
-                url:"<?php echo base_url(); ?>page/fetch_single",
+                url:"<?php echo base_url(); ?>ajax/fetch_single/post",
                 method:'POST',
                 data:{operation:"page_update",page_ID:page_ID},
                 dataType    :   'json',
@@ -142,7 +142,7 @@
             alertify.confirm('Are you sure you want to delete this page?', 
             function(){
               $.ajax({
-               url:"<?php echo base_url(); ?>page/insert",
+               url:"<?php echo base_url(); ?>ajax/insert/post",
                method        :   'POST',
                data        :   {operation:"page_delete",page_ID:page_ID},
                type:  'html',

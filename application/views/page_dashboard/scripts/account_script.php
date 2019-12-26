@@ -7,7 +7,7 @@
             "serverSide":true,
             "order":[],
             "ajax":{
-              url:"<?php echo base_url(); ?>account/fetch_data",
+              url:"<?php echo base_url(); ?>ajax/fetch_datatable/account",
               type:"POST"
             },
             "columnDefs":[
@@ -23,7 +23,7 @@
             event.preventDefault();
 
               $.ajax({
-                url:"<?php echo base_url(); ?>account/insert",
+                url:"<?php echo base_url(); ?>ajax/insert/account",
                 method:'POST',
                 data:new FormData(this),
                 contentType:false,
@@ -73,7 +73,7 @@
             $('#accountModalLabel').text('View Account');
             $('#account_modal').modal('show'); 
              $.ajax({
-                url:"<?php echo base_url(); ?>account/fetch_single",
+                url:"<?php echo base_url(); ?>ajax/fetch_single/account",
                 method:'POST',
                 data:{operation:"account_view",account_ID:account_ID},
                 dataType    :   'json',
@@ -109,7 +109,7 @@
             $('#accountModalLabel').text('Edit Account');
             $('#account_modal').modal('show'); 
              $.ajax({
-                url:"<?php echo base_url(); ?>account/fetch_single",
+                url:"<?php echo base_url(); ?>ajax/fetch_single/account",
                 method:'POST',
                 data:{operation:"account_update",account_ID:account_ID},
                 dataType    :   'json',
@@ -144,7 +144,7 @@
             alertify.confirm('Are you sure you want to delete this  account?', 
             function(){
               $.ajax({
-               url:"<?php echo base_url(); ?>account/insert",
+               url:"<?php echo base_url(); ?>ajax/insert/account",
                method        :   'POST',
                data        :   {operation:"account_delete",account_ID:account_ID},
                type:  'html',
