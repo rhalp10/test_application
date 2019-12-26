@@ -2,7 +2,7 @@
 if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 if(!function_exists('side_navlist')) {
-  function side_navigation($navigation,$controller) {
+  function side_navigation($navigation,$controller,$base_url) {
     $navlink = "";
     foreach($navigation as $key => $sidenav){
      
@@ -22,7 +22,7 @@ if(!function_exists('side_navlist')) {
       }
       
       $navlink .= '<li class="nav-item">
-              <a class="nav-link '.$sidenav_active_ul.' " href="'.$li_a["link"].'">
+              <a class="nav-link '.$sidenav_active_ul.' " href="'.$base_url.$li_a["link"].'">
 
                 <span data-feather="'.$li_a["icon"].'" class="'.$li_a["icon"].'"></span>
                  '.$sidenav_label.' '.$sidenav_active_span.'

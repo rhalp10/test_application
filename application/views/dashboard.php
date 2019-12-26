@@ -1,12 +1,12 @@
 <?php 
 
-    $controller = $this->uri->segment(1); 
+    $ctrlr_methd = $this->uri->segment(1); 
     if(isset($restrict)){
         //IF user is restricted to controller/page. User will be redirect to dashboard.
         if($restrict){
             $array_msg = array(
                 'alert_class'   =>'alert alert-danger',
-                'alert_msg'     =>'You dont have permission to access ('.$this->uri->uri_string().') page.');
+                'alert_msg'     =>'<strong>Restriction!</strong> You dont have permission to access ('.$this->uri->uri_string().') page.');
              $this->session->set_flashdata($array_msg);
              redirect('dashboard');
         }
@@ -157,17 +157,23 @@
                 </nav>   
               
                 <?php 
-                    //if controller is not exist call default
-                    if($controller)
+                    //if method in controller is not exist call default
+                    if($ctrlr_methd)
                     {
                         //check if file exist
-                        if (file_exists(APPPATH.'views/page_dashboard/'.$controller.'.php'))
+                        if (file_exists(APPPATH.'views/page_dashboard/'.$ctrlr_methd.'.php'))
                         {
-                          include(APPPATH.'views/page_dashboard/'.$controller.'.php');
+                          include(APPPATH.'views/page_dashboard/'.$ctrlr_methd.'.php');
                         }
+                        
+                        if (file_exists(APPPATH.'views/page_dashboard/modals/'.$ctrlr_methd.'_modal.php'))
+                        {
+                          include(APPPATH.'views/page_dashboard/modals/'.$ctrlr_methd.'_modal.php');
+                        }
+
                     }
                     else{
-
+                     include(APPPATH.'views/page_dashboard/dashboard.php');
                     }
                   
                 ?>
@@ -184,8 +190,20 @@
         <script src="<?=base_url();?>/assets/js/dashboard.js"></script>
         <script type="text/javascript" src="<?=base_url();?>assets/plugins/datatables/datatables.min.js"></script>
         <script src="<?=base_url();?>assets/plugins/alertifyjs/alertify.min.js"></script>
+        <?php 
+        //if method in controller is not exist call default
+        if($ctrlr_methd)
+        {
+            //check if file exist
+            if (file_exists(APPPATH.'views/page_dashboard/scripts/'.$ctrlr_methd.'_script.php'))
+            {
+              include(APPPATH.'views/page_dashboard/scripts/'.$ctrlr_methd.'_script.php');
+            }
 
-        <?php
+        }
+        
+                  
+         
          if(isset($_SESSION["alert_msg"])){ ?>
         <script>
             $("#alert_msg").fadeTo(2000, 500).slideUp(500, function(){

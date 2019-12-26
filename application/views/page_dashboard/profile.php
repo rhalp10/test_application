@@ -4,7 +4,7 @@
      <div class="row">
          <div class="col-sm-12 text-center " style="min-height: 100px;">
              <H3>PROFILE</H3>
-             <H3><?=$controller?></H3>
+             <H3></H3>
          </div>
      </div>
  </main>

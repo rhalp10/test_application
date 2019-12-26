@@ -63,9 +63,14 @@ $route['dashboard'] = 'user/dashboard';
 | -------------------------------------------------------------------------
 */
 $route['account'] 						= 'user/account';
+// $route['account/(:num)'] 				= 'user/account/$1';
+$route['account/add'] 					= 'user/account_update/';
 $route['account/update/(:num)'] 		= 'user/account_update/$1';
 $route['account/view/(:num)'] 			= 'user/account_view/$1';
 $route['account/delete/(:num)'] 		= 'user/account_delete/$1';
+$route['account/page'] 					= 'user/account';
+$route['account/page/(:num)'] 			= 'user/account/$1';
+
 /*
 | -------------------------------------------------------------------------
 */
@@ -105,3 +110,6 @@ $route['project/delete/(:num)'] 		= 'user/post_delete/$1';
 /*
 | -------------------------------------------------------------------------
 */
+
+
+

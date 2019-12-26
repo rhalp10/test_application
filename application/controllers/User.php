@@ -6,6 +6,7 @@ class User extends MY_Controller {
 
 	function __construct(){
 		parent::__construct();
+		$this->load->library('session');
 		
 	}
 	public function index(){
@@ -13,10 +14,11 @@ class User extends MY_Controller {
 		$this->load->view($this->page_view);
 		
 	}
-
+	//call main page for visitors
 	public function main(){
 		$this->load->view('main');
 	}
+	//call dashboard page for users with roles
 	public function dashboard(){
 		$this->callDashboard();
 		
@@ -44,6 +46,7 @@ class User extends MY_Controller {
 		$this->callDashboard();
 
 	}
+
 	/*
 	| -------------------------------------------------------------------
 	|  USER PROFILE 
@@ -68,6 +71,7 @@ class User extends MY_Controller {
 	|
 	*/
 	public function post($id = ''){
+		
 		$this->callDashboard();
 	}
 	public function post_update($id = ''){
@@ -121,7 +125,7 @@ class User extends MY_Controller {
 
 	/*
 	| -------------------------------------------------------------------
-	|  SESSION
+	|  AUTHENTICATION SESSION
 	| -------------------------------------------------------------------
 	|
 	|  
@@ -164,7 +168,8 @@ class User extends MY_Controller {
 
 		echo json_encode($output,true);
 	}
-	public function callDashboard($has_access_inpage = true){
+
+	public function callDashboard($has_access_inpage = true,$data = ''){
 
 
 		if($this->is_user_login())
@@ -175,7 +180,7 @@ class User extends MY_Controller {
 				$this->load->view($this->page_view,$data);
 			}
 			else{
-				$this->load->view($this->page_view);
+				$this->load->view($this->page_view,$data);
 			}
 			
 			
@@ -192,7 +197,7 @@ class User extends MY_Controller {
 	}
 	
 	public function logout(){
-		$this->load->library('session');
+		
 		$this->session->unset_userdata('user');
 		$array_msg = array(
 				'alert_class'	=>'alert alert-success',

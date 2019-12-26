@@ -4,21 +4,19 @@
     <div class="row">
         <div class="col-sm-12 text-center " style="min-height: 400px!important;">
             <H3>DASHBOARD</H3>
-            <!-- <H3><?=$controller?></H3> -->
-            
+
             <div class="float-right">
-              <?php
+                <?php
                if(isset($_SESSION["alert_msg"])){ ?>
 
-              <div class="alert alert-danger alert-dismissible fade show " id="alert_msg">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Restriction!</strong> <?=$_SESSION["alert_msg"]?>.
-              </div>
-              <?php }?>
+                    <div class="<?=$_SESSION["alert_class"]?> alert-dismissible fade show " id="alert_msg">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$_SESSION["alert_msg"]?>
+                    </div>
+                    <?php }?>
             </div>
 
         </div>
 
-       
     </div>
 </main>
