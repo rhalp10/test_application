@@ -6,126 +6,208 @@ class User extends MY_Controller {
 
 	function __construct(){
 		parent::__construct();
+		$this->load->library('session');
 		
 	}
-
 	public function index(){
 		
-		$this->load->library('session');
-
-		
-		if($this->session->userdata('user')){
-			
-
-			
-			$data  = [
-				'page_title' => "Dashboard",
-				];
-			$this->load->view('dashboard',$data);
-		}
-		else{
-
-			$data["form_login"]["form-attribute"] = array(
-	              'class'  => 'form-signin',
-	              'id' => 'login_form',
-	              'role' => 'form',
-	              'method' => 'POST',
-	          );
-	        
-			$data["form_login"]["username"] = array(
-			        'type' 			=>"text" ,
-			        'id'			=>"login_user", 
-			        'class'			=>"form-control", 
-			        'placeholder'	=>"Username" ,
-			        'name'			=>"login_user", 
-			        'value'         => '',
-			        'required' => '',
-			);
-			$data["form_login"]["password"] = array(
-			        'type' 			=>"password" ,
-			        'id'			=>"login_password", 
-			        'class'			=>"form-control", 
-			        'placeholder'	=>"Password" ,
-			        'name'			=>"login_password", 
-			        'value'         => '',
-			        'required' => '',
-			);
-			$data["form_login"]["operation"] = array(
-			        'type' 			=>"hidden" ,
-			        'id'			=>"login_operation", 
-			        'name'			=>"operation", 
-			        'value'         => 'submit_login',
-			);
-			$data["form_login"]["submit"]  = array(
-                  'class'         =>"btn btn-primary btn-block",
-                  'type'          => 'submit',
-                  'style'          => 'background-color: #1d8f1d',
-                  'name'            => 'submit_login',
-                  'content' => 'Sign in',
-          );
-			$data["script"] = "authentication";
-			
-		
-			$data["all_pages"] = $this->users_model->all_pages();
-			$this->load->view('templates/head',$data);
-			$this->load->view('templates/header',$data);
-			$this->load->view('authentication',$data);
-			$this->load->view('templates/script',$data);
-		}
+		$this->load->view($this->page_view);
 		
 	}
-	//LOGIN AUTHENTICATION
+	//call main page for visitors
+	public function main(){
+		$this->load->view('main');
+	}
+	//call dashboard page for users with roles
+	public function dashboard(){
+		$this->callDashboard();
+		
+	}
+	/*
+	| -------------------------------------------------------------------
+	|  ACCOUNT MANAGEMENT
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+	public function account(){
+		$this->callDashboard();
+	}
+	public function account_update(){
+		$this->callDashboard();
+
+	}
+	public function account_view(){
+		$this->callDashboard();
+
+	}
+	public function account_delete(){
+		$this->callDashboard();
+
+	}
+
+	/*
+	| -------------------------------------------------------------------
+	|  USER PROFILE 
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+	public function profile(){
+		$this->callDashboard();
+	}
+
+	/*
+	| -------------------------------------------------------------------
+	*/	
+	/*
+	| -------------------------------------------------------------------
+	|  POST MANAGEMENT
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+	public function post($id = ''){
+		$data["pagination"] =  $this->pagination('post',200,'P20');
+		$this->callDashboard(true,$data);
+	}
+	public function post_update($id = ''){
+		$this->callDashboard();
+
+	}
+	public function post_view($id = ''){
+		$this->callDashboard();
+
+	}
+	public function post_delete($id = ''){
+		$this->callDashboard();
+
+	}
+	/*
+	| -------------------------------------------------------------------
+	*/	
+
+	/*
+	| -------------------------------------------------------------------
+	|  PROJECT MANAGEMENT
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+	public function project(){
+		if(array_search("manager", $this->userRoles)){
+			$this->callDashboard();
+		}
+		else{
+			$this->callDashboard(false);
+
+		}
+
+		
+	}
+	public function project_update(){
+
+	}
+	public function project_view(){
+
+	}
+	public function project_delete(){
+
+	}
+	/*
+	| -------------------------------------------------------------------
+	*/
+
+
+	/*
+	| -------------------------------------------------------------------
+	|  AUTHENTICATION SESSION
+	| -------------------------------------------------------------------
+	|
+	|  
+	|
+	*/
+
 	public function authentication(){
 		$output = array();
 		
 		$this->load->library('session');
 
-		$login_user = $this->input->post('login_user');
-		$login_password = $this->input->post('login_password');
+		$all_fields = array('login_user','login_password');
+		$credential_data = array();
+        foreach($all_fields as $field) {
+            if($this->input->post($field) == null)
+                $credential_data[$field] = '';
+            else
+                $credential_data[$field] = $this->input->post($field);
+        }
 
-		$data = $this->users_model->login($login_user, $login_password);
+		$data = $this->users_model->verify_login($credential_data);
 
-		if($data){
-			$this->session->set_userdata('user', $data);
-			$output["success"] = "Success Login";
+		if($data["success"]){
+			$this->session->set_userdata('user', $data["success"]);
+			$array_msg = array(
+				'alert_class'	=>'alert alert-success',
+				'alert_msg'		=>'Success Login');
+			$this->session->set_flashdata($array_msg);
+			redirect('dashboard');
 			
 		}
 		else{
-			
-			$output["error"] = "Invalid login. User not found";
-			$this->session->set_flashdata('item', 'value');
+
+			$array_msg = array(
+				'alert_class'	=>'alert alert-danger',
+				'alert_msg'		=>$data["error"]);
+			$this->session->set_flashdata($array_msg);
+			redirect('/');
 		} 
 
 		echo json_encode($output,true);
 	}
 
-	public function dashboard(){
-		
-		$this->load->library('session');
+	public function callDashboard($has_access_inpage = true,$data = ''){
 
-		
-		if($this->session->userdata('user')){
-			$data["page_title"]  = "Dashboard";
-			$data["script"] = "dashboard";
-			$this->load->view('dashboard',$data);
+
+		if($this->is_user_login())
+		{
+			if($has_access_inpage == false){
+
+				$data["restrict"] = "true";
+				$this->load->view($this->page_view,$data);
+			}
+			else{
+				$this->load->view($this->page_view,$data);
+			}
+			
+			
 		}
 		else{
+			
+			$array_msg = array(
+				'alert_class'	=>'alert alert-danger',
+				'alert_msg'		=>'Login required to proceed.');
+			$this->session->set_flashdata($array_msg);
+
 			redirect('/');
 		}
-		
 	}
-
-
-
-
-
 	
-
 	public function logout(){
 		
-		$this->load->library('session');
 		$this->session->unset_userdata('user');
+		$array_msg = array(
+				'alert_class'	=>'alert alert-success',
+				'alert_msg'		=>'Logout success.');
+		$this->session->set_flashdata($array_msg);
 		redirect('/');
 	}
-
+	/*
+	| -------------------------------------------------------------------
+	*/	
 }
+
+?>
