@@ -1,5 +1,6 @@
 <?php
 class Account_model extends MY_Model {
+
 	function __construct(){
 		parent::__construct();
 		
@@ -11,6 +12,10 @@ class Account_model extends MY_Model {
 
 		$count = $query->num_rows();
 		return $count;
+	}
+	public function table_rowCount(){
+		return $this->db->count_all('users');
+
 	}
 	public function user_add($array){
 		$this->db->insert('users', $array);
@@ -39,12 +44,6 @@ class Account_model extends MY_Model {
 		        ));
 		return $query->row_array();
 	}
-
-	
-
-	
-
-
 
 }
 ?>
